@@ -1656,6 +1656,12 @@
         function playChannel(ch) {
             if (!ch || !ch.url) return;
 
+            // Mixed Content Fix: Auto-upgrade to HTTPS to prevent blocking
+            if (location.protocol === 'https:' && ch.url.startsWith('http:')) {
+                ch.url = ch.url.replace('http:', 'https:');
+                if (typeof log === 'function') log("Auto-upgrading HTTP stream to HTTPS");
+            }
+
             // Show Player
             changeView('playing');
             dom.player.title.textContent = ch.name;
