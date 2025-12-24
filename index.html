@@ -374,7 +374,8 @@
         .sidebar-scroll {
             flex: 1;
             overflow-y: auto;
-            padding: 0 15px;
+            padding: 20px;
+            /* More padding for focus rings */
         }
 
         .category-item {
@@ -382,11 +383,13 @@
             font-size: 1rem;
             color: var(--text-secondary);
             border-radius: 10px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            /* More space between items */
             transition: all 0.2s;
             font-weight: 500;
             display: flex;
             align-items: center;
+            border: 2px solid transparent;
         }
 
         /* WebOS/Hotstar active state */
@@ -401,6 +404,7 @@
             transform: scale(1.02);
             font-weight: 700;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
         }
 
         #sidebar-footer {
@@ -428,7 +432,8 @@
         /* Main Content */
         #main-content {
             flex: 1;
-            padding: 40px;
+            padding: 0;
+            /* Let grid control padding */
             overflow-y: hidden;
             display: flex;
             flex-direction: column;
@@ -438,8 +443,9 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 30px;
-            padding: 0 10px;
+            margin-bottom: 20px;
+            padding: 40px 40px 0 40px;
+            /* Header padding */
         }
 
         #category-title {
@@ -458,9 +464,9 @@
         #grid-container {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
-            margin: -10px;
-            /* Offset padding */
+            padding: 40px;
+            /* Generous padding for Safe Area + Focus */
+            margin: 0;
         }
 
         .channel-grid {
@@ -1064,6 +1070,7 @@
                 </div>
             `;
                 el.onclick = () => selectProfile(i);
+                el.onmouseover = () => { state.profilesIndex = i; updateFocus(); };
                 dom.profileGrid.appendChild(el);
             });
 
@@ -1076,12 +1083,20 @@
              </div>
              <div class="profile-name">Add Profile</div>
         `;
+            addEl.innerHTML = `
+             <div class="profile-avatar add-profile-avatar">
+                <div class="add-profile-icon">+</div>
+             </div>
+             <div class="profile-name">Add Profile</div>
+        `;
+            addEl.className = 'profile-card';
             addEl.onclick = () => {
                 dom.inputs.name.value = '';
                 // dom.inputs.url.value = ''; // keep default for ease
                 state.formStep = 0;
                 changeView('add_playlist');
             };
+            addEl.onmouseover = () => { state.profilesIndex = state.playlists.length; updateFocus(); };
             dom.profileGrid.appendChild(addEl);
         }
 
@@ -1097,6 +1112,11 @@
                 el.onclick = () => {
                     selectCategory(i);
                     state.browseView = 'sidebar';
+                    updateFocus();
+                };
+                el.onmouseover = () => {
+                    // Sync focus but don't auto-select content yet (wait for click)
+                    state.categoryIndex = i;
                     updateFocus();
                 };
                 dom.catList.appendChild(el);
@@ -1177,6 +1197,12 @@
             </div>
                 `;
                 el.onclick = () => playChannel(ch);
+                el.onmouseover = () => {
+                    // Switch to grid view if not already (handles transitions from sidebar hover)
+                    if (state.browseView !== 'grid') state.browseView = 'grid';
+                    state.channelIndex = i;
+                    updateFocus();
+                };
                 dom.chanGrid.appendChild(el);
             });
         }
