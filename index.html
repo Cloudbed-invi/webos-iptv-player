@@ -367,6 +367,7 @@
             font-weight: 800;
             background: linear-gradient(90deg, #fff, #999);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
         }
@@ -799,301 +800,295 @@
 </head>
 
 <body>
-    <!-- Debug Overlay -->
-    <div id="debug-overlay">
-        <div
-            style="display:flex; justify-content:space-between; border-bottom:1px solid #555; padding-bottom:5px; margin-bottom:5px;">
-            <strong>DEBUG MODE</strong>
-            <span onclick="toggleDebug()" style="cursor:pointer; color:white;">[CLOSE]</span>
-        </div>
-        <div id="debug-content"></div>
-    </div>
 
-    <div id="views-container">
+    <body>
+        <!-- Debug Overlay REMOVED -->
 
-        <!-- Profile Selection Screen -->
-        <div id="profile-screen" class="view-section">
-            <div class="profile-title">Who's watching?</div>
-            <!-- Profile Grid -->
-            <div class="profile-grid" id="profile-grid">
-                <!-- Dynamic Content -->
-            </div>
-        </div>
+        <div id="views-container">
 
-        <!-- Add Playlist Screen -->
-        <div id="add-playlist-screen" class="view-section">
-            <div class="form-container">
-                <h2 class="form-title">Add Playlist</h2>
-                <div class="form-group">
-                    <label class="form-label">Profile Name</label>
-                    <input type="text" id="playlist-name" placeholder="e.g. Bedroom TV" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">M3U Playlist URL</label>
-                    <input type="url" id="playlist-url" value="https://iptv-org.github.io/iptv/languages/tel.m3u" />
-                </div>
-                <div class="btn-row">
-                    <button id="save-playlist-btn" class="action-btn btn-primary">Add Profile</button>
-                    <button id="cancel-playlist-btn" class="action-btn btn-secondary">Cancel</button>
+            <!-- Profile Selection Screen -->
+            <div id="profile-screen" class="view-section">
+                <div class="profile-title">Who's watching?</div>
+                <!-- Profile Grid -->
+                <div class="profile-grid" id="profile-grid">
+                    <!-- Dynamic Content -->
                 </div>
             </div>
-        </div>
 
-        <!-- Main Player App -->
-        <div id="app" class="view-section">
-            <!-- Sidebar -->
-            <div id="sidebar">
-                <div id="sidebar-header">StreamTV</div>
-                <div class="sidebar-scroll" id="category-list">
-                    <!-- Categories -->
-                </div>
-                <div id="sidebar-footer">
-                    <div id="switch-playlist-btn" class="footer-btn">
-                        <span>⚡</span> Switch Profile
+            <!-- Add Playlist Screen -->
+            <div id="add-playlist-screen" class="view-section">
+                <div class="form-container">
+                    <h2 class="form-title">Add Playlist</h2>
+                    <div class="form-group">
+                        <label class="form-label">Profile Name</label>
+                        <input type="text" id="playlist-name" placeholder="e.g. Bedroom TV" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">M3U Playlist URL</label>
+                        <input type="url" id="playlist-url" value="https://iptv-org.github.io/iptv/languages/tel.m3u" />
+                    </div>
+                    <div class="btn-row">
+                        <button id="save-playlist-btn" class="action-btn btn-primary">Add Profile</button>
+                        <button id="cancel-playlist-btn" class="action-btn btn-secondary">Cancel</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Content -->
-            <div id="main-content">
-                <div id="header-area">
-                    <h1 id="category-title">All Channels</h1>
-                    <div style="display:flex; align-items:center;">
-                        <div id="search-container">
-                            <span style="font-size:1.2rem;">🔍</span>
-                            <input type="text" id="search-input" inputmode="search" placeholder="Search Channels..." />
+            <!-- Main Player App -->
+            <div id="app" class="view-section">
+                <!-- Sidebar -->
+                <div id="sidebar">
+                    <div id="sidebar-header">StreamTV</div>
+                    <div class="sidebar-scroll" id="category-list">
+                        <!-- Categories -->
+                    </div>
+                    <div id="sidebar-footer">
+                        <div id="switch-playlist-btn" class="footer-btn">
+                            <span>⚡</span> Switch Profile
                         </div>
-                        <div id="clock-display">12:00 PM</div>
-                        <div id="settings-icon" onclick="toggleDebug()">⚙️</div>
                     </div>
                 </div>
 
-                <div id="grid-container">
-                    <div id="channel-grid" class="channel-grid">
-                        <!-- Channels -->
+                <!-- Content -->
+                <div id="main-content">
+                    <div id="header-area">
+                        <h1 id="category-title">All Channels</h1>
+                        <div style="display:flex; align-items:center;">
+                            <div id="search-container">
+                                <span style="font-size:1.2rem;">🔍</span>
+                                <input type="text" id="search-input" inputmode="search"
+                                    placeholder="Search Channels..." />
+                            </div>
+                            <div id="clock-display">12:00 PM</div>
+                        </div>
+                    </div>
+
+                    <div id="grid-container">
+                        <div id="channel-grid" class="channel-grid">
+                            <!-- Channels -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule info (Placeholder) -->
+                <div id="schedule-panel">
+                    <div class="schedule-header">
+                        <div class="schedule-title">Guide</div>
+                        <div class="schedule-subtitle">Today's Schedule</div>
+                    </div>
+                    <div class="program-list">
+                        <div class="program-item current">
+                            <div class="program-time">NOW</div>
+                            <div class="program-name">Live Stream</div>
+                            <div class="program-desc">No EPG data available for this channel currently.</div>
+                        </div>
+                        <div class="program-item">
+                            <div class="program-time">NEXT</div>
+                            <div class="program-name">Upcoming Program</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Schedule info (Placeholder) -->
-            <div id="schedule-panel">
-                <div class="schedule-header">
-                    <div class="schedule-title">Guide</div>
-                    <div class="schedule-subtitle">Today's Schedule</div>
-                </div>
-                <div class="program-list">
-                    <div class="program-item current">
-                        <div class="program-time">NOW</div>
-                        <div class="program-name">Live Stream</div>
-                        <div class="program-desc">No EPG data available for this channel currently.</div>
+        </div>
+
+        <!-- Video Player -->
+        <div id="player-overlay">
+            <div id="player-close-btn" onclick="closePlayer()">✕</div>
+            <video id="video-player"></video>
+            <div class="player-osd" id="player-osd">
+                <div class="player-info-row">
+                    <div>
+                        <div class="player-channel-title" id="player-channel-name">HBO</div>
+                        <div class="player-program-info">Live Stream <span class="live-tag">LIVE</span></div>
                     </div>
-                    <div class="program-item">
-                        <div class="program-time">NEXT</div>
-                        <div class="program-name">Upcoming Program</div>
+                    <div style="text-align: right; color: #888; font-size: 0.9rem;">
+                        720p HD
                     </div>
                 </div>
+                <div class="player-progress-bar">
+                    <div class="player-progress-fill"></div>
+                </div>
+            </div>
+
+            <div id="loading-spinner" style="display:none;"></div>
+            <div id="error-message" style="display:none;">
+                <h3 style="margin: 0 0 10px 0; color: #ff3b30;">Stream Offline</h3>
+                <div style="color: #ccc; margin-bottom: 20px;">We couldn't connect to this channel.</div>
+                <div style="font-size: 0.8rem; color: #888;">Press BACK to return</div>
             </div>
         </div>
 
-    </div>
+        <script>
+            // --- Config & State ---
+            const CORS_PROXY = 'https://corsproxy.io/?url=';
+            const IMG_PROXY = '//images.weserv.nl/?url=';
 
-    <!-- Video Player -->
-    <div id="player-overlay">
-        <div id="player-close-btn" onclick="closePlayer()">✕</div>
-        <video id="video-player"></video>
-        <div class="player-osd" id="player-osd">
-            <div class="player-info-row">
-                <div>
-                    <div class="player-channel-title" id="player-channel-name">HBO</div>
-                    <div class="player-program-info">Live Stream <span class="live-tag">LIVE</span></div>
-                </div>
-                <div style="text-align: right; color: #888; font-size: 0.9rem;">
-                    720p HD
-                </div>
-            </div>
-            <div class="player-progress-bar">
-                <div class="player-progress-fill"></div>
-            </div>
-        </div>
+            const state = {
+                appState: 'profiles', // profiles, add_playlist, browsing, playing
 
-        <div id="loading-spinner" style="display:none;"></div>
-        <div id="error-message" style="display:none;">
-            <h3 style="margin: 0 0 10px 0; color: #ff3b30;">Stream Offline</h3>
-            <div style="color: #ccc; margin-bottom: 20px;">We couldn't connect to this channel.</div>
-            <div style="font-size: 0.8rem; color: #888;">Press BACK to return</div>
-        </div>
-    </div>
+                // Data
+                playlists: [],
+                currentPlaylist: null,
 
-    <script>
-        // --- Config & State ---
-        const CORS_PROXY = 'https://corsproxy.io/?url=';
-        const IMG_PROXY = '//images.weserv.nl/?url=';
+                channels: [],
+                categories: { 'All Channels': [] },
+                categoryList: [],
 
-        const state = {
-            appState: 'profiles', // profiles, add_playlist, browsing, playing
+                // Navigation
+                profilesIndex: 0,
+                profileAction: 'select', // select, delete
 
-            // Data
-            playlists: [],
-            currentPlaylist: null,
+                browseView: 'grid', // sidebar, sidebar_footer, grid
+                categoryIndex: 0,
+                channelIndex: 0,
 
-            channels: [],
-            categories: { 'All Channels': [] },
-            categoryList: [],
+                // Add Form
+                formStep: 0, // 0:Name, 1:Url, 2:Save, 3:Cancel
 
-            // Navigation
-            profilesIndex: 0,
-            profileAction: 'select', // select, delete
+                // Player
+                hls: null,
+                playerTimeout: null,
 
-            browseView: 'grid', // sidebar, sidebar_footer, grid
-            categoryIndex: 0,
-            channelIndex: 0,
+                // Debounce
+                debounceTimer: null
+            };
 
-            // Add Form
-            formStep: 0, // 0:Name, 1:Url, 2:Save, 3:Cancel
+            // --- Elements ---
+            const dom = {
+                views: {
+                    profiles: document.getElementById('profile-screen'),
+                    add_playlist: document.getElementById('add-playlist-screen'),
+                    browsing: document.getElementById('app'),
+                    playing: document.getElementById('player-overlay') // Logic view
+                },
+                profileGrid: document.getElementById('profile-grid'),
 
-            // Player
-            hls: null,
-            playerTimeout: null,
+                catList: document.getElementById('category-list'),
+                switchBtn: document.getElementById('switch-playlist-btn'),
+                chanGrid: document.getElementById('channel-grid'),
+                catTitle: document.getElementById('category-title'),
+                clock: document.getElementById('clock-display'),
 
-            // Debounce
-            debounceTimer: null
-        };
+                searchContainer: document.getElementById('search-container'),
+                searchInput: document.getElementById('search-input'),
 
-        // --- Elements ---
-        const dom = {
-            views: {
-                profiles: document.getElementById('profile-screen'),
-                add_playlist: document.getElementById('add-playlist-screen'),
-                browsing: document.getElementById('app'),
-                playing: document.getElementById('player-overlay') // Logic view
-            },
-            profileGrid: document.getElementById('profile-grid'),
+                inputs: {
+                    name: document.getElementById('playlist-name'),
+                    url: document.getElementById('playlist-url'),
+                    save: document.getElementById('save-playlist-btn'),
+                    cancel: document.getElementById('cancel-playlist-btn')
+                },
 
-            catList: document.getElementById('category-list'),
-            switchBtn: document.getElementById('switch-playlist-btn'),
-            chanGrid: document.getElementById('channel-grid'),
-            catTitle: document.getElementById('category-title'),
-            clock: document.getElementById('clock-display'),
-
-            searchContainer: document.getElementById('search-container'),
-            searchInput: document.getElementById('search-input'),
-
-            inputs: {
-                name: document.getElementById('playlist-name'),
-                url: document.getElementById('playlist-url'),
-                save: document.getElementById('save-playlist-btn'),
-                cancel: document.getElementById('cancel-playlist-btn')
-            },
-
-            player: {
-                overlay: document.getElementById('player-overlay'),
-                video: document.getElementById('video-player'),
-                osd: document.getElementById('player-osd'),
-                title: document.getElementById('player-channel-name'),
-                spinner: document.getElementById('loading-spinner'),
-                error: document.getElementById('error-message')
-            }
-        };
-
-        // --- Init ---
-        function init() {
-            startClock();
-            loadPlaylists();
-
-            const lastId = localStorage.getItem('iptv_last_playlist_id');
-            let autoAuth = false;
-
-            if (state.playlists.length > 0 && lastId) {
-                const idx = state.playlists.findIndex(p => p.id == lastId);
-                if (idx !== -1) {
-                    autoAuth = true;
-                    selectProfile(idx);
+                player: {
+                    overlay: document.getElementById('player-overlay'),
+                    video: document.getElementById('video-player'),
+                    osd: document.getElementById('player-osd'),
+                    title: document.getElementById('player-channel-name'),
+                    spinner: document.getElementById('loading-spinner'),
+                    error: document.getElementById('error-message')
                 }
+            };
+
+            // --- Init ---
+            function init() {
+                startClock();
+                loadPlaylists();
+
+                const lastId = localStorage.getItem('iptv_last_playlist_id');
+                let autoAuth = false;
+
+                if (state.playlists.length > 0 && lastId) {
+                    const idx = state.playlists.findIndex(p => p.id == lastId);
+                    if (idx !== -1) {
+                        autoAuth = true;
+                        selectProfile(idx);
+                    }
+                }
+
+                if (!autoAuth) {
+                    if (state.playlists.length === 0) changeView('add_playlist');
+                    else {
+                        renderProfiles();
+                        changeView('profiles');
+                    }
+                }
+
+                setupInput();
             }
 
-            if (!autoAuth) {
+            function startClock() {
+                setInterval(() => {
+                    const now = new Date();
+                    dom.clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                }, 1000);
+            }
+
+            // --- View Manager ---
+            function changeView(newView) {
+                state.appState = newView;
+                state.profileAction = 'select'; // reset
+
+                // DOM Visibility
+                Object.values(dom.views).forEach(el => el.classList.remove('active'));
+
+                if (newView === 'playing') {
+                    dom.views.browsing.classList.add('active'); // Keep browsing visible behind
+                    dom.player.overlay.style.display = 'flex';
+                } else {
+                    dom.views[newView].classList.add('active');
+                    dom.player.overlay.style.display = 'none';
+                }
+
+                // Focus Update
+                setTimeout(updateFocus, 50);
+            }
+
+            // --- Persistence ---
+            function loadPlaylists() {
+                try {
+                    state.playlists = JSON.parse(localStorage.getItem('iptv_playlists') || '[]');
+                } catch (e) { state.playlists = []; }
+            }
+
+            function savePlaylist() {
+                const name = dom.inputs.name.value || "My Playlist";
+                const url = dom.inputs.url.value;
+                if (!url) return alert("URL Required");
+
+                state.playlists.push({
+                    id: Date.now(),
+                    name, url,
+                    color: 'color-' + ((state.playlists.length % 4) + 1)
+                });
+                localStorage.setItem('iptv_playlists', JSON.stringify(state.playlists));
+
+                renderProfiles();
+                changeView('profiles');
+            }
+
+            function deletePlaylist(idx) {
+                if (!confirm("Remove this profile?")) return;
+                state.playlists.splice(idx, 1);
+                localStorage.setItem('iptv_playlists', JSON.stringify(state.playlists));
+
+                state.profilesIndex = 0;
+                state.profileAction = 'select';
+
                 if (state.playlists.length === 0) changeView('add_playlist');
                 else {
                     renderProfiles();
-                    changeView('profiles');
+                    updateFocus();
                 }
             }
 
-            setupInput();
-        }
-
-        function startClock() {
-            setInterval(() => {
-                const now = new Date();
-                dom.clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            }, 1000);
-        }
-
-        // --- View Manager ---
-        function changeView(newView) {
-            state.appState = newView;
-            state.profileAction = 'select'; // reset
-
-            // DOM Visibility
-            Object.values(dom.views).forEach(el => el.classList.remove('active'));
-
-            if (newView === 'playing') {
-                dom.views.browsing.classList.add('active'); // Keep browsing visible behind
-                dom.player.overlay.style.display = 'flex';
-            } else {
-                dom.views[newView].classList.add('active');
-                dom.player.overlay.style.display = 'none';
-            }
-
-            // Focus Update
-            setTimeout(updateFocus, 50);
-        }
-
-        // --- Persistence ---
-        function loadPlaylists() {
-            try {
-                state.playlists = JSON.parse(localStorage.getItem('iptv_playlists') || '[]');
-            } catch (e) { state.playlists = []; }
-        }
-
-        function savePlaylist() {
-            const name = dom.inputs.name.value || "My Playlist";
-            const url = dom.inputs.url.value;
-            if (!url) return alert("URL Required");
-
-            state.playlists.push({
-                id: Date.now(),
-                name, url,
-                color: 'color-' + ((state.playlists.length % 4) + 1)
-            });
-            localStorage.setItem('iptv_playlists', JSON.stringify(state.playlists));
-
-            renderProfiles();
-            changeView('profiles');
-        }
-
-        function deletePlaylist(idx) {
-            if (!confirm("Remove this profile?")) return;
-            state.playlists.splice(idx, 1);
-            localStorage.setItem('iptv_playlists', JSON.stringify(state.playlists));
-
-            state.profilesIndex = 0;
-            state.profileAction = 'select';
-
-            if (state.playlists.length === 0) changeView('add_playlist');
-            else {
-                renderProfiles();
-                updateFocus();
-            }
-        }
-
-        // --- Renderers ---
-        function renderProfiles() {
-            dom.profileGrid.innerHTML = '';
-            state.playlists.forEach((pl, i) => {
-                const el = document.createElement('div');
-                el.className = 'profile-card';
-                el.innerHTML = `
+            // --- Renderers ---
+            function renderProfiles() {
+                dom.profileGrid.innerHTML = '';
+                state.playlists.forEach((pl, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'profile-card';
+                    el.innerHTML = `
                 <div class="profile-avatar ${pl.color}">
                     <span class="profile-text-initial">${pl.name[0].toUpperCase()}</span>
                 </div>
@@ -1102,120 +1097,120 @@
                     <div class="delete-btn">✕</div>
                 </div>
             `;
-                el.onclick = () => selectProfile(i);
-                // Removed onmouseover to prevent auto-focus
-                dom.profileGrid.appendChild(el);
-            });
+                    el.onclick = () => selectProfile(i);
+                    // Removed onmouseover to prevent auto-focus
+                    dom.profileGrid.appendChild(el);
+                });
 
-            // Add Btn
-            const addEl = document.createElement('div');
-            addEl.className = 'profile-card';
-            addEl.innerHTML = `
+                // Add Btn
+                const addEl = document.createElement('div');
+                addEl.className = 'profile-card';
+                addEl.innerHTML = `
              <div class="profile-avatar add-profile-avatar">
                 <div class="add-profile-icon">+</div>
              </div>
              <div class="profile-name">Add Profile</div>
         `;
-            addEl.innerHTML = `
+                addEl.innerHTML = `
              <div class="profile-avatar add-profile-avatar">
                 <div class="add-profile-icon">+</div>
              </div>
              <div class="profile-name">Add Profile</div>
         `;
-            addEl.className = 'profile-card';
-            addEl.onclick = () => {
-                dom.inputs.name.value = '';
-                // dom.inputs.url.value = ''; // keep default for ease
-                state.formStep = 0;
-                changeView('add_playlist');
-            };
-            addEl.onclick = () => {
-                dom.inputs.name.value = '';
-                // dom.inputs.url.value = ''; // keep default for ease
-                state.formStep = 0;
-                changeView('add_playlist');
-            };
-            // Removed onmouseover
-            dom.profileGrid.appendChild(addEl);
-        }
-
-        function renderSidebar() {
-            dom.catList.innerHTML = '';
-            state.categoryList.forEach((cat, i) => {
-                const el = document.createElement('div');
-                el.className = 'category-item';
-                el.textContent = cat;
-                // Visual active state only, actual selection via logic
-                if (i === state.categoryIndex) el.classList.add('active');
-
-                el.onclick = () => {
-                    selectCategory(i);
-                    state.browseView = 'sidebar';
-                    updateFocus();
+                addEl.className = 'profile-card';
+                addEl.onclick = () => {
+                    dom.inputs.name.value = '';
+                    // dom.inputs.url.value = ''; // keep default for ease
+                    state.formStep = 0;
+                    changeView('add_playlist');
                 };
-                el.onclick = () => {
-                    selectCategory(i);
-                    state.browseView = 'sidebar';
-                    updateFocus();
+                addEl.onclick = () => {
+                    dom.inputs.name.value = '';
+                    // dom.inputs.url.value = ''; // keep default for ease
+                    state.formStep = 0;
+                    changeView('add_playlist');
                 };
                 // Removed onmouseover
-                dom.catList.appendChild(el);
-            });
-        }
+                dom.profileGrid.appendChild(addEl);
+            }
 
-        // Global Image Error Handler
-        function handleImageError(img) {
-            const fallbackStep = parseInt(img.dataset.fallbackStep || '0');
-            const originalSrc = img.dataset.originalSrc;
+            function renderSidebar() {
+                dom.catList.innerHTML = '';
+                state.categoryList.forEach((cat, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'category-item';
+                    el.textContent = cat;
+                    // Visual active state only, actual selection via logic
+                    if (i === state.categoryIndex) el.classList.add('active');
 
-            if (fallbackStep === 0) {
-                // Step 1: Proxy failed. Try Direct URL.
-                img.dataset.fallbackStep = '1';
-                if (originalSrc) {
-                    img.src = originalSrc;
-                } else {
+                    el.onclick = () => {
+                        selectCategory(i);
+                        state.browseView = 'sidebar';
+                        updateFocus();
+                    };
+                    el.onclick = () => {
+                        selectCategory(i);
+                        state.browseView = 'sidebar';
+                        updateFocus();
+                    };
+                    // Removed onmouseover
+                    dom.catList.appendChild(el);
+                });
+            }
+
+            // Global Image Error Handler
+            function handleImageError(img) {
+                const fallbackStep = parseInt(img.dataset.fallbackStep || '0');
+                const originalSrc = img.dataset.originalSrc;
+
+                if (fallbackStep === 0) {
+                    // Step 1: Proxy failed. Try Direct URL.
+                    img.dataset.fallbackStep = '1';
+                    if (originalSrc) {
+                        img.src = originalSrc;
+                    } else {
+                        showTextFallback(img);
+                    }
+                } else if (fallbackStep === 1) {
+                    // Step 2: Direct URL failed. Show Text.
+                    img.dataset.fallbackStep = '2';
                     showTextFallback(img);
                 }
-            } else if (fallbackStep === 1) {
-                // Step 2: Direct URL failed. Show Text.
-                img.dataset.fallbackStep = '2';
-                showTextFallback(img);
-            }
-        }
-
-        function showTextFallback(img) {
-            img.style.display = 'none';
-            if (img.nextElementSibling && img.nextElementSibling.classList.contains('no-logo')) {
-                img.nextElementSibling.style.display = 'block';
-            }
-        }
-
-        // ... (init and other functions) ...
-
-        function renderGrid(customChannels = null) {
-            dom.chanGrid.innerHTML = '';
-            const channels = customChannels || state.categories[state.categoryList[state.categoryIndex]];
-
-            if (!channels || channels.length === 0) {
-                dom.chanGrid.innerHTML = '<div style="color:#666; padding:20px;">No channels found.</div>';
-                return;
             }
 
-            channels.forEach((ch, i) => {
-                const el = document.createElement('div');
-                el.className = 'channel-card';
+            function showTextFallback(img) {
+                img.style.display = 'none';
+                if (img.nextElementSibling && img.nextElementSibling.classList.contains('no-logo')) {
+                    img.nextElementSibling.style.display = 'block';
+                }
+            }
 
-                // Image Logic:
-                // 1. Try Weserv Proxy (optmized)
-                // 2. On Error -> handleImageError -> Try Direct URL
-                // 3. On Error -> handleImageError -> Show Text
+            // ... (init and other functions) ...
 
-                let imgHTML = '';
-                if (ch.logo) {
-                    // Proxy URL - CHANGED TO PNG for TV compatibility
-                    const proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(ch.logo) + '&w=300&output=png&il';
+            function renderGrid(customChannels = null) {
+                dom.chanGrid.innerHTML = '';
+                const channels = customChannels || state.categories[state.categoryList[state.categoryIndex]];
 
-                    imgHTML = `
+                if (!channels || channels.length === 0) {
+                    dom.chanGrid.innerHTML = '<div style="color:#666; padding:20px;">No channels found.</div>';
+                    return;
+                }
+
+                channels.forEach((ch, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'channel-card';
+
+                    // Image Logic:
+                    // 1. Try Weserv Proxy (optmized)
+                    // 2. On Error -> handleImageError -> Try Direct URL
+                    // 3. On Error -> handleImageError -> Show Text
+
+                    let imgHTML = '';
+                    if (ch.logo) {
+                        // Proxy URL - CHANGED TO PNG for TV compatibility
+                        const proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(ch.logo) + '&w=300&output=png&il';
+
+                        imgHTML = `
             <img src="${proxyUrl}"
                 data-original-src="${ch.logo}"
                 data-fallback-step="0"
@@ -1226,540 +1221,540 @@
             />
             <div class="no-logo" style="display:none; font-size:2rem; color: #555;">TV</div>
             `;
-                } else {
-                    imgHTML = `<div class="no-logo" style="font-size:2rem; color: #555;">TV</div>`;
-                }
+                    } else {
+                        imgHTML = `<div class="no-logo" style="font-size:2rem; color: #555;">TV</div>`;
+                    }
 
-                el.innerHTML = `
+                    el.innerHTML = `
             <div class="channel-card-inner">${imgHTML}</div>
             <div class="card-overlay">
                 <div class="channel-name">${ch.name}</div>
             </div>
                 `;
-                el.onclick = () => playChannel(ch);
-                // Removed onmouseover
-                dom.chanGrid.appendChild(el);
-                dom.chanGrid.appendChild(el);
-            });
-        }
+                    el.onclick = () => playChannel(ch);
+                    // Removed onmouseover
+                    dom.chanGrid.appendChild(el);
+                    dom.chanGrid.appendChild(el);
+                });
+            }
 
-        // --- Logic ---
-        function selectProfile(i) {
-            state.currentPlaylist = state.playlists[i];
-            localStorage.setItem('iptv_last_playlist_id', state.currentPlaylist.id);
+            // --- Logic ---
+            function selectProfile(i) {
+                state.currentPlaylist = state.playlists[i];
+                localStorage.setItem('iptv_last_playlist_id', state.currentPlaylist.id);
 
-            fetch(state.currentPlaylist.url).then(r => r.text()).then(txt => {
-                parseM3U(txt);
-                renderSidebar();
-                selectCategory(0);
-                changeView('browsing');
-            }).catch(e => {
-                alert("Failed to load playlist");
-                state.appState = 'profiles';
-                renderProfiles();
-                changeView('profiles');
-            });
-        }
+                fetch(state.currentPlaylist.url).then(r => r.text()).then(txt => {
+                    parseM3U(txt);
+                    renderSidebar();
+                    selectCategory(0);
+                    changeView('browsing');
+                }).catch(e => {
+                    alert("Failed to load playlist");
+                    state.appState = 'profiles';
+                    renderProfiles();
+                    changeView('profiles');
+                });
+            }
 
-        function parseM3U(raw) {
-            const lines = raw.split('\n');
-            state.channels = [];
-            state.categories = { 'All Channels': [] };
-            let curr = {};
+            function parseM3U(raw) {
+                const lines = raw.split('\n');
+                state.channels = [];
+                state.categories = { 'All Channels': [] };
+                let curr = {};
 
-            lines.forEach(line => {
-                line = line.trim();
-                if (line.startsWith('#EXTINF:')) {
-                    const info = line.substring(8);
-                    const logo = (info.match(/tvg-logo="([^"]*)"/) || [])[1];
-                    const group = (info.match(/group-title="([^"]*)"/) || [])[1] || 'Uncategorized';
-                    const name = info.split(',').pop().trim();
-                    curr = { name, logo, group };
-                } else if (line && !line.startsWith('#')) {
-                    curr.url = line;
-                    if (curr.name && curr.url) {
-                        state.channels.push(curr);
-                        state.categories['All Channels'].push(curr);
-                        if (!state.categories[curr.group]) state.categories[curr.group] = [];
-                        state.categories[curr.group].push(curr);
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (line.startsWith('#EXTINF:')) {
+                        const info = line.substring(8);
+                        const logo = (info.match(/tvg-logo="([^"]*)"/) || [])[1];
+                        const group = (info.match(/group-title="([^"]*)"/) || [])[1] || 'Uncategorized';
+                        const name = info.split(',').pop().trim();
+                        curr = { name, logo, group };
+                    } else if (line && !line.startsWith('#')) {
+                        curr.url = line;
+                        if (curr.name && curr.url) {
+                            state.channels.push(curr);
+                            state.categories['All Channels'].push(curr);
+                            if (!state.categories[curr.group]) state.categories[curr.group] = [];
+                            state.categories[curr.group].push(curr);
+                        }
+                        curr = {};
                     }
-                    curr = {};
-                }
-            });
+                });
 
-            const keys = Object.keys(state.categories).sort();
-            const allIdx = keys.indexOf('All Channels');
-            if (allIdx > -1) { keys.splice(allIdx, 1); keys.unshift('All Channels'); }
-            state.categoryList = keys;
-        }
+                const keys = Object.keys(state.categories).sort();
+                const allIdx = keys.indexOf('All Channels');
+                if (allIdx > -1) { keys.splice(allIdx, 1); keys.unshift('All Channels'); }
+                state.categoryList = keys;
+            }
 
-        // Select category immediately (for click or debounce end)
-        function selectCategory(i) {
-            if (state.debounceTimer) clearTimeout(state.debounceTimer);
+            // Select category immediately (for click or debounce end)
+            function selectCategory(i) {
+                if (state.debounceTimer) clearTimeout(state.debounceTimer);
 
-            // Reset Search
-            dom.searchInput.value = '';
-            state.browseView = 'sidebar'; // Default focus logic
+                // Reset Search
+                dom.searchInput.value = '';
+                state.browseView = 'sidebar'; // Default focus logic
 
-            state.categoryIndex = i;
-            const name = state.categoryList[i];
-            dom.catTitle.textContent = name;
+                state.categoryIndex = i;
+                const name = state.categoryList[i];
+                dom.catTitle.textContent = name;
 
-            // Update Grid
-            renderGrid();
+                // Update Grid
+                renderGrid();
 
-            // Update Sidebar visual
-            Array.from(dom.catList.children).forEach((c, idx) => c.classList.toggle('active', idx === i));
-            state.channelIndex = 0;
-        }
-
-        // Updates Sidebar Visuals ONLY (scrolling)
-        function highlightCategory(i) {
-            state.categoryIndex = i;
-            updateFocus(); // Scrolls into view
-
-            // Debounce the Grid Update
-            if (state.debounceTimer) clearTimeout(state.debounceTimer);
-            state.debounceTimer = setTimeout(() => {
-                selectCategory(i);
-            }, 300); // 300ms delay
-        }
-
-
-        // --- Input & Navigation ---
-        // --- DEBUG UTILS ---
-        function toggleDebug() {
-            const el = document.getElementById('debug-overlay');
-            el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function log(msg) {
-            const el = document.getElementById('debug-content');
-            if (!el) return;
-            const line = document.createElement('div');
-            line.className = 'log-entry';
-            line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-            el.prepend(line); // Newest on top
-        }
-
-        // --- Input & Navigation ---
-        function setupInput() {
-            document.addEventListener('keydown', (e) => {
-                const k = e.keyCode;
-                const key = e.key;
-
-                // DEBUG LOG
-                log(`KEY: ${key} | CODE: ${k}`);
-
-                let action = null;
-
-                // Map Code/Key to Action
-                if (k === 13 || key === 'Enter') action = 'ENTER';
-                else if (k === 37 || key === 'ArrowLeft') action = 'LEFT';
-                else if (k === 38 || key === 'ArrowUp') action = 'UP';
-                else if (k === 39 || key === 'ArrowRight') action = 'RIGHT';
-                else if (k === 40 || key === 'ArrowDown') action = 'DOWN';
-                else if (k === 461 || k === 10009 || k === 27 || key === 'Back' || key === 'Escape') action = 'BACK';
-                else if (k === 8 || key === 'Backspace') action = 'BACK';
-
-                if (action) log(`ACT: ${action}`);
-
-                // SPECIAL HANDLE FOR SEARCH INPUT
-                const isInput = document.activeElement.tagName === 'INPUT';
-                if (isInput) {
-                    if (action === 'BACK') {
-                        e.preventDefault();
-                        handleNav('BACK');
-                        return;
-                    }
-                    if (action === 'ENTER') {
-                        e.preventDefault();
-                        handleNav('ENTER');
-                        return;
-                    }
-                    if (k === 8) return;
-                }
-
-                if (action) e.preventDefault();
-                handleNav(action);
-            });
-
-            // Log Input errors
-            window.onerror = function (msg, url, line) {
-                log(`ERR: ${msg}`);
-            };
-
-            // Search Filter
-            dom.searchInput.addEventListener('input', (e) => {
-                const val = e.target.value.toLowerCase();
-                if (!val) {
-                    selectCategory(state.categoryIndex);
-                    return;
-                }
-                const filtered = state.categories['All Channels'].filter(c => c.name.toLowerCase().includes(val));
-                renderGrid(filtered);
-                dom.catTitle.textContent = "Search Results";
+                // Update Sidebar visual
+                Array.from(dom.catList.children).forEach((c, idx) => c.classList.toggle('active', idx === i));
                 state.channelIndex = 0;
-                state.browseView = 'search'; // Stay in search
-            });
-
-            // Mouse/Touch Handlers
-            dom.inputs.save.onclick = savePlaylist;
-            dom.inputs.cancel.onclick = () => changeView('profiles');
-            dom.switchBtn.onclick = () => {
-                localStorage.removeItem('iptv_last_playlist_id');
-                changeView('profiles');
-                renderProfiles();
-            };
-        }
-
-        function updateFocus() {
-            // Clear Highlighting
-            document.querySelectorAll('.focused').forEach(e => e.classList.remove('focused', 'action-select', 'action-delete'));
-
-            if (state.appState === 'profiles') {
-                const items = dom.profileGrid.children;
-                const i = Math.min(state.profilesIndex, items.length - 1);
-                if (items[i]) {
-                    items[i].classList.add('focused', 'action-' + state.profileAction);
-                }
-
-            } else if (state.appState === 'add_playlist') {
-                const steps = [dom.inputs.name, dom.inputs.url, dom.inputs.save, dom.inputs.cancel];
-                if (steps[state.formStep]) {
-                    steps[state.formStep].focus();
-                    if (state.formStep >= 2) steps[state.formStep].classList.add('focused');
-                }
-
-            } else if (state.appState === 'browsing') {
-                if (state.browseView === 'search') {
-                    // Highlight the container, but don't force focus input yet (wait for Enter)
-                    dom.searchContainer.classList.add('focused');
-                }
-                else if (state.browseView === 'sidebar') {
-                    dom.searchInput.blur();
-                    const item = dom.catList.children[state.categoryIndex];
-                    if (item) {
-                        item.classList.add('focused');
-                        item.scrollIntoView({ block: 'center', behavior: 'smooth' });
-                    }
-                } else if (state.browseView === 'sidebar_footer') {
-                    dom.switchBtn.classList.add('focused');
-                } else { // Grid
-                    dom.searchInput.blur();
-                    const item = dom.chanGrid.children[state.channelIndex];
-                    if (item) {
-                        item.classList.add('focused');
-                        item.scrollIntoView({ block: 'center', behavior: 'smooth' });
-                    }
-                }
-            }
-        }
-
-        function handleNav(action) {
-            if (state.appState === 'playing') {
-                if (action === 'BACK' || action === 'b') { // 'b' check for some remotes
-                    closePlayer();
-                    return;
-                }
-                if (action === 'ENTER') {
-                    // Toggle Play/Pause
-                    if (dom.player.video.paused) dom.player.video.play();
-                    else dom.player.video.pause();
-                }
-                // Show OSD on any key
-                showOSD();
-                return;
             }
 
-            if (action === 'BACK') {
-                if (state.appState === 'add_playlist') changeView('profiles');
-                else if (state.appState === 'browsing') {
-                    if (state.browseView === 'grid') { state.browseView = 'sidebar'; updateFocus(); }
-                    else if (state.browseView === 'search') {
-                        // Clear Search on back
-                        state.browseView = 'sidebar';
-                        dom.searchInput.blur();
-                        dom.searchInput.value = '';
+            // Updates Sidebar Visuals ONLY (scrolling)
+            function highlightCategory(i) {
+                state.categoryIndex = i;
+                updateFocus(); // Scrolls into view
+
+                // Debounce the Grid Update
+                if (state.debounceTimer) clearTimeout(state.debounceTimer);
+                state.debounceTimer = setTimeout(() => {
+                    selectCategory(i);
+                }
+
+        // --- Init ---
+        function init() {
+                        // Force focus for TV Remotes
+                        window.focus();
+                        if (document.body) document.body.focus();
+
+                        startClock();, 300); // 300ms delay
+            }
+
+
+            // --- Input & Navigation ---
+            // --- Input & Navigation ---
+            function setupInput() {
+                document.addEventListener('keydown', (e) => {
+                    const k = e.keyCode;
+                    const key = e.key;
+
+                    let action = null;
+
+                    // Map Code/Key to Action
+                    if (k === 13 || key === 'Enter') action = 'ENTER';
+                    else if (k === 37 || key === 'ArrowLeft') action = 'LEFT';
+                    else if (k === 38 || key === 'ArrowUp') action = 'UP';
+                    else if (k === 39 || key === 'ArrowRight') action = 'RIGHT';
+                    else if (k === 40 || key === 'ArrowDown') action = 'DOWN';
+                    else if (k === 461 || k === 10009 || k === 27 || key === 'Back' || key === 'Escape') action = 'BACK';
+                    else if (k === 8 || key === 'Backspace') action = 'BACK';
+
+                    if (action) e.preventDefault();
+
+                    // SPECIAL HANDLE FOR SEARCH INPUT
+                    const isInput = document.activeElement.tagName === 'INPUT';
+                    if (isInput) {
+                        if (action === 'BACK') {
+                            e.preventDefault();
+                            handleNav('BACK');
+                            return;
+                        }
+                        if (action === 'ENTER') {
+                            e.preventDefault();
+                            handleNav('ENTER');
+                            return;
+                        }
+                        if (k === 8) return;
+                    }
+
+                    if (action) e.preventDefault();
+                    handleNav(action);
+                });
+
+                // Log Input errors
+                window.onerror = function (msg, url, line) {
+                    log(`ERR: ${msg}`);
+                };
+
+                // Search Filter
+                dom.searchInput.addEventListener('input', (e) => {
+                    const val = e.target.value.toLowerCase();
+                    if (!val) {
                         selectCategory(state.categoryIndex);
+                        return;
                     }
-                    // Else stay
-                }
-                return;
-            }
-
-            // ... (rest of delegation) ...
-            if (state.appState === 'profiles') navProfiles(action);
-            else if (state.appState === 'add_playlist') navAddForm(action);
-            else if (state.appState === 'browsing') navBrowsing(action);
-        }
-
-        // ... (nav functions) ...
-
-        // ... (player functions) ...
-
-        function showOSD() {
-            dom.player.osd.style.opacity = '1';
-            const closeBtn = document.getElementById('player-close-btn');
-            if (closeBtn) closeBtn.style.opacity = '1';
-
-            if (state.playerTimeout) clearTimeout(state.playerTimeout);
-            state.playerTimeout = setTimeout(() => {
-                dom.player.osd.style.opacity = '0';
-                if (closeBtn) closeBtn.style.opacity = '0';
-            }, 5000);
-        }
-
-        function navProfiles(action) {
-            const len = dom.profileGrid.children.length;
-            if (action === 'RIGHT' && state.profilesIndex < len - 1) {
-                state.profilesIndex++;
-                state.profileAction = 'select';
-            }
-            if (action === 'LEFT' && state.profilesIndex > 0) {
-                state.profilesIndex--;
-                state.profileAction = 'select';
-            }
-            if (action === 'DOWN') {
-                // Check if on real profile (not add btn)
-                if (state.profilesIndex < state.playlists.length) {
-                    state.profileAction = 'delete';
-                }
-            }
-            if (action === 'UP') {
-                state.profileAction = 'select';
-            }
-            if (action === 'ENTER') {
-                if (state.profilesIndex === state.playlists.length) {
-                    // Add Btn
-                    changeView('add_playlist');
-                } else {
-                    if (state.profileAction === 'delete') deletePlaylist(state.profilesIndex);
-                    else selectProfile(state.profilesIndex);
-                }
-            }
-            updateFocus();
-        }
-
-        function navAddForm(action) {
-            if (action === 'DOWN' && state.formStep < 3) state.formStep++;
-            if (action === 'UP' && state.formStep > 0) state.formStep--;
-            if (action === 'ENTER') {
-                if (state.formStep === 2) savePlaylist();
-                else if (state.formStep === 3) changeView('profiles');
-            }
-            updateFocus();
-        }
-
-        function getGridCols() {
-            const children = dom.chanGrid.children;
-            if (children.length === 0) return 3; // Default
-
-            const firstTop = children[0].offsetTop;
-            let cols = 0;
-            for (let i = 0; i < children.length; i++) {
-                if (children[i].offsetTop === firstTop) cols++;
-                else break;
-            }
-            return cols;
-        }
-
-        function navBrowsing(action) {
-            // --- SEARCH VIEW ---
-            if (state.browseView === 'search') {
-                if (action === 'DOWN') {
-                    // Go back to content
-                    state.browseView = 'grid';
+                    const filtered = state.categories['All Channels'].filter(c => c.name.toLowerCase().includes(val));
+                    renderGrid(filtered);
+                    dom.catTitle.textContent = "Search Results";
                     state.channelIndex = 0;
-                }
-                if (action === 'ENTER') {
-                    // ACTIVATE KEYBOARD
-                    dom.searchInput.focus();
-                }
-                updateFocus();
-                return;
-            }
+                    state.browseView = 'search'; // Stay in search
+                });
 
-            // --- SIDEBAR ---
-            if (state.browseView === 'sidebar') {
-                if (action === 'UP') {
-                    if (state.categoryIndex > 0) highlightCategory(state.categoryIndex - 1);
-                    else {
-                        // Go to Search from top of sidebar
-                        state.browseView = 'search';
-                    }
-                }
-                if (action === 'DOWN') {
-                    if (state.categoryIndex < state.categoryList.length - 1) highlightCategory(state.categoryIndex + 1);
-                    else state.browseView = 'sidebar_footer';
-                }
-                if (action === 'RIGHT' || action === 'ENTER') {
-                    selectCategory(state.categoryIndex);
-                    state.browseView = 'grid';
-                }
-            }
-
-            // --- FOOTER ---
-            else if (state.browseView === 'sidebar_footer') {
-                if (action === 'UP') {
-                    state.browseView = 'sidebar';
-                    updateFocus();
-                }
-                if (action === 'RIGHT') {
-                    state.browseView = 'grid';
-                    selectCategory(state.categoryIndex);
-                }
-                if (action === 'ENTER') {
+                // Mouse/Touch Handlers
+                dom.inputs.save.onclick = savePlaylist;
+                dom.inputs.cancel.onclick = () => changeView('profiles');
+                dom.switchBtn.onclick = () => {
                     localStorage.removeItem('iptv_last_playlist_id');
                     changeView('profiles');
                     renderProfiles();
-                }
-            }
-
-            // --- GRID ---
-            else { // Grid
-                const cols = getGridCols();
-                const max = dom.chanGrid.children.length - 1;
-
-                // Allow going up to search from row 0
-                if (action === 'UP') {
-                    if (state.channelIndex < cols) {
-                        state.browseView = 'search';
-                        // Don't change channelIndex so we can go back down
-                    } else {
-                        state.channelIndex -= cols;
-                    }
-                }
-                else if (action === 'RIGHT' && state.channelIndex < max) state.channelIndex++;
-                else if (action === 'LEFT') {
-                    if (state.channelIndex % cols === 0) state.browseView = 'sidebar';
-                    else state.channelIndex--;
-                }
-                else if (action === 'DOWN') {
-                    if (state.channelIndex + cols <= max) state.channelIndex += cols;
-                    else state.channelIndex = max;
-                }
-                else if (action === 'ENTER') {
-                    // If in search mode, use filtered list?
-                    // renderGrid already handles rendering the right list.
-                    // But we need to know which channel object.
-                    // Simplified: We rely on the DOM order matching renderGrid logic?
-                    // Actually safer to trust renderGrid's source.
-                    // But handleSearch updates DOM.
-
-                    // Better: Check active list source.
-                    let channels = state.categories[state.categoryList[state.categoryIndex]];
-                    if (dom.searchInput.value) {
-                        channels = state.categories['All Channels'].filter(c => c.name.toLowerCase().includes(dom.searchInput.value.toLowerCase()));
-                    }
-
-                    if (channels[state.channelIndex]) {
-                        playChannel(channels[state.channelIndex]);
-                    }
-                }
-            }
-            updateFocus();
-        }
-
-        // --- Player Logic ---
-        function playChannel(ch) {
-            if (!ch || !ch.url) return;
-
-            // Mixed Content Fix: Auto-upgrade to HTTPS to prevent blocking
-            if (location.protocol === 'https:' && ch.url.startsWith('http:')) {
-                ch.url = ch.url.replace('http:', 'https:');
-                if (typeof log === 'function') log("Auto-upgrading HTTP stream to HTTPS");
-            }
-
-            // Show Player
-            changeView('playing');
-            dom.player.title.textContent = ch.name;
-            dom.player.spinner.style.display = 'block';
-            dom.player.error.style.display = 'none';
-
-            if (Hls.isSupported()) {
-                if (state.hls) state.hls.destroy();
-
-                // Optimized Config for TV/WebOS
-                const config = {
-                    debug: false,
-                    enableWorker: true,
-                    lowLatencyMode: true,
-                    backBufferLength: 90,
-                    maxBufferLength: 30, // conservative for TV memory
-                    maxMaxBufferLength: 60,
-                    startLevel: -1, // Auto
                 };
+            }
 
-                state.hls = new Hls(config);
-                state.hls.loadSource(ch.url);
-                state.hls.attachMedia(dom.player.video);
+            function updateFocus() {
+                // Clear Highlighting
+                document.querySelectorAll('.focused').forEach(e => e.classList.remove('focused', 'action-select', 'action-delete'));
 
-                state.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    dom.player.video.play().catch(e => console.log("Auto-play prevented", e));
-                    dom.player.spinner.style.display = 'none';
-                });
+                if (state.appState === 'profiles') {
+                    const items = dom.profileGrid.children;
+                    const i = Math.min(state.profilesIndex, items.length - 1);
+                    if (items[i]) {
+                        items[i].classList.add('focused', 'action-' + state.profileAction);
+                    }
 
-                state.hls.on(Hls.Events.ERROR, (event, data) => {
-                    if (data.fatal) {
-                        switch (data.type) {
-                            case Hls.ErrorTypes.NETWORK_ERROR:
-                                state.hls.startLoad();
-                                break;
-                            case Hls.ErrorTypes.MEDIA_ERROR:
-                                state.hls.recoverMediaError();
-                                break;
-                            default:
-                                dom.player.spinner.style.display = 'none';
-                                dom.player.error.style.display = 'block';
-                                break;
+                } else if (state.appState === 'add_playlist') {
+                    const steps = [dom.inputs.name, dom.inputs.url, dom.inputs.save, dom.inputs.cancel];
+                    if (steps[state.formStep]) {
+                        steps[state.formStep].focus();
+                        if (state.formStep >= 2) steps[state.formStep].classList.add('focused');
+                    }
+
+                } else if (state.appState === 'browsing') {
+                    if (state.browseView === 'search') {
+                        // Highlight the container, but don't force focus input yet (wait for Enter)
+                        dom.searchContainer.classList.add('focused');
+                    }
+                    else if (state.browseView === 'sidebar') {
+                        dom.searchInput.blur();
+                        const item = dom.catList.children[state.categoryIndex];
+                        if (item) {
+                            item.classList.add('focused');
+                            item.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                        }
+                    } else if (state.browseView === 'sidebar_footer') {
+                        dom.switchBtn.classList.add('focused');
+                    } else { // Grid
+                        dom.searchInput.blur();
+                        const item = dom.chanGrid.children[state.channelIndex];
+                        if (item) {
+                            item.classList.add('focused');
+                            item.scrollIntoView({ block: 'center', behavior: 'smooth' });
                         }
                     }
+                }
+            }
+
+            function handleNav(action) {
+                if (state.appState === 'playing') {
+                    if (action === 'BACK' || action === 'b') { // 'b' check for some remotes
+                        closePlayer();
+                        return;
+                    }
+                    if (action === 'ENTER') {
+                        // Toggle Play/Pause
+                        if (dom.player.video.paused) dom.player.video.play();
+                        else dom.player.video.pause();
+                    }
+                    if (action === 'LEFT') {
+                        // User Request: Left Click 1 -> Show OSD, Left Click 2 -> Close Player
+                        const isVisible = dom.player.osd.style.opacity === '1';
+                        if (isVisible) {
+                            closePlayer();
+                        } else {
+                            showOSD();
+                        }
+                        return;
+                    }
+                    // Show OSD on any other key
+                    showOSD();
+                    return;
+                }
+
+                if (action === 'BACK') {
+                    if (state.appState === 'add_playlist') changeView('profiles');
+                    else if (state.appState === 'browsing') {
+                        if (state.browseView === 'grid') { state.browseView = 'sidebar'; updateFocus(); }
+                        else if (state.browseView === 'search') {
+                            // Clear Search on back
+                            state.browseView = 'sidebar';
+                            dom.searchInput.blur();
+                            dom.searchInput.value = '';
+                            selectCategory(state.categoryIndex);
+                        }
+                        // Else stay
+                    }
+                    return;
+                }
+
+                // ... (rest of delegation) ...
+                if (state.appState === 'profiles') navProfiles(action);
+                else if (state.appState === 'add_playlist') navAddForm(action);
+                else if (state.appState === 'browsing') navBrowsing(action);
+            }
+
+            // ... (nav functions) ...
+
+            // ... (player functions) ...
+
+            function showOSD() {
+                dom.player.osd.style.opacity = '1';
+                const closeBtn = document.getElementById('player-close-btn');
+                if (closeBtn) closeBtn.style.opacity = '1';
+
+                if (state.playerTimeout) clearTimeout(state.playerTimeout);
+                state.playerTimeout = setTimeout(() => {
+                    dom.player.osd.style.opacity = '0';
+                    if (closeBtn) closeBtn.style.opacity = '0';
+                }, 5000);
+            }
+
+            function navProfiles(action) {
+                const len = dom.profileGrid.children.length;
+                if (action === 'RIGHT' && state.profilesIndex < len - 1) {
+                    state.profilesIndex++;
+                    state.profileAction = 'select';
+                }
+                if (action === 'LEFT' && state.profilesIndex > 0) {
+                    state.profilesIndex--;
+                    state.profileAction = 'select';
+                }
+                if (action === 'DOWN') {
+                    // Check if on real profile (not add btn)
+                    if (state.profilesIndex < state.playlists.length) {
+                        state.profileAction = 'delete';
+                    }
+                }
+                if (action === 'UP') {
+                    state.profileAction = 'select';
+                }
+                if (action === 'ENTER') {
+                    if (state.profilesIndex === state.playlists.length) {
+                        // Add Btn
+                        changeView('add_playlist');
+                    } else {
+                        if (state.profileAction === 'delete') deletePlaylist(state.profilesIndex);
+                        else selectProfile(state.profilesIndex);
+                    }
+                }
+                updateFocus();
+            }
+
+            function navAddForm(action) {
+                if (action === 'DOWN' && state.formStep < 3) state.formStep++;
+                if (action === 'UP' && state.formStep > 0) state.formStep--;
+                if (action === 'ENTER') {
+                    if (state.formStep === 2) savePlaylist();
+                    else if (state.formStep === 3) changeView('profiles');
+                }
+                updateFocus();
+            }
+
+            function getGridCols() {
+                const children = dom.chanGrid.children;
+                if (children.length === 0) return 3; // Default
+
+                const firstTop = children[0].offsetTop;
+                let cols = 0;
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i].offsetTop === firstTop) cols++;
+                    else break;
+                }
+                return cols;
+            }
+
+            function navBrowsing(action) {
+                // --- SEARCH VIEW ---
+                if (state.browseView === 'search') {
+                    if (action === 'DOWN') {
+                        // Go back to content
+                        state.browseView = 'grid';
+                        state.channelIndex = 0;
+                    }
+                    if (action === 'ENTER') {
+                        // ACTIVATE KEYBOARD
+                        dom.searchInput.focus();
+                    }
+                    updateFocus();
+                    return;
+                }
+
+                // --- SIDEBAR ---
+                if (state.browseView === 'sidebar') {
+                    if (action === 'UP') {
+                        if (state.categoryIndex > 0) highlightCategory(state.categoryIndex - 1);
+                        else {
+                            // Go to Search from top of sidebar
+                            state.browseView = 'search';
+                        }
+                    }
+                    if (action === 'DOWN') {
+                        if (state.categoryIndex < state.categoryList.length - 1) highlightCategory(state.categoryIndex + 1);
+                        else state.browseView = 'sidebar_footer';
+                    }
+                    if (action === 'RIGHT' || action === 'ENTER') {
+                        selectCategory(state.categoryIndex);
+                        state.browseView = 'grid';
+                    }
+                }
+
+                // --- FOOTER ---
+                else if (state.browseView === 'sidebar_footer') {
+                    if (action === 'UP') {
+                        state.browseView = 'sidebar';
+                        updateFocus();
+                    }
+                    if (action === 'RIGHT') {
+                        state.browseView = 'grid';
+                        selectCategory(state.categoryIndex);
+                    }
+                    if (action === 'ENTER') {
+                        localStorage.removeItem('iptv_last_playlist_id');
+                        changeView('profiles');
+                        renderProfiles();
+                    }
+                }
+
+                // --- GRID ---
+                else { // Grid
+                    const cols = getGridCols();
+                    const max = dom.chanGrid.children.length - 1;
+
+                    // Allow going up to search from row 0
+                    if (action === 'UP') {
+                        if (state.channelIndex < cols) {
+                            state.browseView = 'search';
+                            // Don't change channelIndex so we can go back down
+                        } else {
+                            state.channelIndex -= cols;
+                        }
+                    }
+                    else if (action === 'RIGHT' && state.channelIndex < max) state.channelIndex++;
+                    else if (action === 'LEFT') {
+                        if (state.channelIndex % cols === 0) state.browseView = 'sidebar';
+                        else state.channelIndex--;
+                    }
+                    else if (action === 'DOWN') {
+                        if (state.channelIndex + cols <= max) state.channelIndex += cols;
+                        else state.channelIndex = max;
+                    }
+                    else if (action === 'ENTER') {
+                        // If in search mode, use filtered list?
+                        // renderGrid already handles rendering the right list.
+                        // But we need to know which channel object.
+                        // Simplified: We rely on the DOM order matching renderGrid logic?
+                        // Actually safer to trust renderGrid's source.
+                        // But handleSearch updates DOM.
+
+                        // Better: Check active list source.
+                        let channels = state.categories[state.categoryList[state.categoryIndex]];
+                        if (dom.searchInput.value) {
+                            channels = state.categories['All Channels'].filter(c => c.name.toLowerCase().includes(dom.searchInput.value.toLowerCase()));
+                        }
+
+                        if (channels[state.channelIndex]) {
+                            playChannel(channels[state.channelIndex]);
+                        }
+                    }
+                }
+                updateFocus();
+            }
+
+            // --- Player Logic ---
+            function playChannel(ch) {
+                if (!ch || !ch.url) return;
+
+                // Mixed Content Fix: Auto-upgrade to HTTPS to prevent blocking
+                if (location.protocol === 'https:' && ch.url.startsWith('http:')) {
+                    ch.url = ch.url.replace('http:', 'https:');
+                    if (typeof log === 'function') log("Auto-upgrading HTTP stream to HTTPS");
+                }
+
+                // Show Player
+                changeView('playing');
+                dom.player.title.textContent = ch.name;
+                dom.player.spinner.style.display = 'block';
+                dom.player.error.style.display = 'none';
+
+                if (Hls.isSupported()) {
+                    if (state.hls) state.hls.destroy();
+
+                    // Optimized Config for TV/WebOS
+                    const config = {
+                        debug: false,
+                        enableWorker: true,
+                        lowLatencyMode: true,
+                        backBufferLength: 90,
+                        maxBufferLength: 30, // conservative for TV memory
+                        maxMaxBufferLength: 60,
+                        startLevel: -1, // Auto
+                    };
+
+                    state.hls = new Hls(config);
+                    state.hls.loadSource(ch.url);
+                    state.hls.attachMedia(dom.player.video);
+
+                    state.hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        dom.player.video.play().catch(e => console.log("Auto-play prevented", e));
+                        dom.player.spinner.style.display = 'none';
+                    });
+
+                    state.hls.on(Hls.Events.ERROR, (event, data) => {
+                        if (data.fatal) {
+                            switch (data.type) {
+                                case Hls.ErrorTypes.NETWORK_ERROR:
+                                    state.hls.startLoad();
+                                    break;
+                                case Hls.ErrorTypes.MEDIA_ERROR:
+                                    state.hls.recoverMediaError();
+                                    break;
+                                default:
+                                    dom.player.spinner.style.display = 'none';
+                                    dom.player.error.style.display = 'block';
+                                    break;
+                            }
+                        }
+                    });
+                } else if (dom.player.video.canPlayType('application/vnd.apple.mpegurl')) {
+                    dom.player.video.src = ch.url;
+                    dom.player.video.addEventListener('loadedmetadata', () => {
+                        dom.player.video.play();
+                        dom.player.spinner.style.display = 'none';
+                    });
+                }
+            }
+
+            function closePlayer() {
+                if (dom.player.video) {
+                    dom.player.video.pause();
+                    dom.player.video.src = "";
+                }
+                if (state.hls) {
+                    state.hls.destroy();
+                    state.hls = null;
+                }
+                changeView('browsing');
+            }
+
+            function showOSD() {
+                dom.player.osd.style.opacity = '1';
+                const closeBtn = document.getElementById('player-close-btn');
+                if (closeBtn) closeBtn.style.opacity = '1';
+
+                if (state.playerTimeout) clearTimeout(state.playerTimeout);
+                state.playerTimeout = setTimeout(() => {
+                    dom.player.osd.style.opacity = '0';
+                    if (closeBtn) closeBtn.style.opacity = '0';
+                }, 5000);
+            }
+
+            // --- BOOT ---
+            window.onload = function () {
+                init();
+                // Player Mouse Interaction
+                dom.player.overlay.addEventListener('mousemove', () => {
+                    showOSD();
                 });
-            } else if (dom.player.video.canPlayType('application/vnd.apple.mpegurl')) {
-                dom.player.video.src = ch.url;
-                dom.player.video.addEventListener('loadedmetadata', () => {
-                    dom.player.video.play();
-                    dom.player.spinner.style.display = 'none';
+                // Click on overlay (bg) shows OSD too, unless it's close btn
+                dom.player.overlay.addEventListener('click', (e) => {
+                    if (e.target === dom.player.overlay) showOSD();
                 });
-            }
-        }
+            };
 
-        function closePlayer() {
-            if (dom.player.video) {
-                dom.player.video.pause();
-                dom.player.video.src = "";
-            }
-            if (state.hls) {
-                state.hls.destroy();
-                state.hls = null;
-            }
-            changeView('browsing');
-        }
-
-        function showOSD() {
-            dom.player.osd.style.opacity = '1';
-            const closeBtn = document.getElementById('player-close-btn');
-            if (closeBtn) closeBtn.style.opacity = '1';
-
-            if (state.playerTimeout) clearTimeout(state.playerTimeout);
-            state.playerTimeout = setTimeout(() => {
-                dom.player.osd.style.opacity = '0';
-                if (closeBtn) closeBtn.style.opacity = '0';
-            }, 5000);
-        }
-
-        // --- BOOT ---
-        window.onload = function () {
-            init();
-            // Player Mouse Interaction
-            dom.player.overlay.addEventListener('mousemove', () => {
-                showOSD();
-            });
-            // Click on overlay (bg) shows OSD too, unless it's close btn
-            dom.player.overlay.addEventListener('click', (e) => {
-                if (e.target === dom.player.overlay) showOSD();
-            });
-        };
-
-    </script>
+        </script>
