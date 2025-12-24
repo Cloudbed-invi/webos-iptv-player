@@ -1657,6 +1657,13 @@
         function playChannel(ch) {
             if (!ch || !ch.url) return;
 
+            let streamUrl = ch.url;
+            // Mixed Content Fix: Use Proxy for HTTP streams on HTTPS
+            if (location.protocol === 'https:' && streamUrl.startsWith('http:')) {
+                // Use the CORS Proxy defined at top
+                streamUrl = CORS_PROXY + streamUrl;
+            }
+
             // Show Player
             changeView('playing');
             dom.player.title.textContent = ch.name;
