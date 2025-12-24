@@ -1317,10 +1317,29 @@
 
 
         // --- Input & Navigation ---
+        // --- DEBUG UTILS ---
+        function toggleDebug() {
+            const el = document.getElementById('debug-overlay');
+            el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function log(msg) {
+            const el = document.getElementById('debug-content');
+            if (!el) return;
+            const line = document.createElement('div');
+            line.className = 'log-entry';
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            el.prepend(line); // Newest on top
+        }
+
+        // --- Input & Navigation ---
         function setupInput() {
             document.addEventListener('keydown', (e) => {
                 const k = e.keyCode;
-                const key = e.key; // Modern string identifier
+                const key = e.key;
+
+                // DEBUG LOG
+                log(`KEY: ${key} | CODE: ${k}`);
 
                 let action = null;
 
@@ -1331,18 +1350,14 @@
                 else if (k === 39 || key === 'ArrowRight') action = 'RIGHT';
                 else if (k === 40 || key === 'ArrowDown') action = 'DOWN';
                 else if (k === 461 || k === 10009 || k === 27 || key === 'Back' || key === 'Escape') action = 'BACK';
-                else if (k === 8 || key === 'Backspace') action = 'BACK'; // Treat Backspace as Back generally
+                else if (k === 8 || key === 'Backspace') action = 'BACK';
 
-                if (!action) return;
+                if (action) log(`ACT: ${action}`);
 
                 // SPECIAL HANDLE FOR SEARCH INPUT
                 const isInput = document.activeElement.tagName === 'INPUT';
                 if (isInput) {
-                    // If typing, allow default letters/numbers (which return null action)
-                    // But if it's a nav key, we need to decide.
-
                     if (action === 'BACK') {
-                        // ESC/Back closes search/app
                         e.preventDefault();
                         handleNav('BACK');
                         return;
@@ -1352,21 +1367,17 @@
                         handleNav('ENTER');
                         return;
                     }
-                    if (k === 8) return; // Allow natural Backspace in input
-
-                    // Allow arrows to move cursor inside input? 
-                    // Or navigate out? 
-                    // Standard TV behavior: Arrows navigate OUT to items.
-                    // But typing needs cursor move? 
-                    // Let's allow Arrow Left/Right to type? No, TV input usually on-screen keyboard.
-                    // Let's allow D-pad to break out of input.
-                    // Actually, keep simple: Arrows always navigate.
+                    if (k === 8) return;
                 }
 
-                // Prevent Default Browser Action for Nav Keys (especially Back/Arrows)
-                e.preventDefault();
+                if (action) e.preventDefault();
                 handleNav(action);
             });
+
+            // Log Input errors
+            window.onerror = function (msg, url, line) {
+                log(`ERR: ${msg}`);
+            };
 
             // Search Filter
             dom.searchInput.addEventListener('input', (e) => {
