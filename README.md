@@ -37,10 +37,10 @@ A modern, fast, and lightweight IPTV player designed for Smart TVs (specifically
 
 Simply upload `index.html` to GitHub Pages.
 
-1.  Create a new repository.
-2.  Upload `index.html`.
+1.  Create a new repository named `webos-iptv-player`.
+2.  Run the commands below to push the code.
 3.  Go to Settings -> Pages -> Source: `main` branch.
-4.  Open the provided URL on your TV's browser.
+4.  Open `https://cloudbed-invi.github.io/webos-iptv-player/` on your TV's browser.
 
 ## Technical Details
 
