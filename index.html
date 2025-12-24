@@ -1093,7 +1093,7 @@
                 </div>
             `;
                 el.onclick = () => selectProfile(i);
-                el.onmouseover = () => { state.profilesIndex = i; updateFocus(); };
+                // Removed onmouseover to prevent auto-focus
                 dom.profileGrid.appendChild(el);
             });
 
@@ -1119,7 +1119,13 @@
                 state.formStep = 0;
                 changeView('add_playlist');
             };
-            addEl.onmouseover = () => { state.profilesIndex = state.playlists.length; updateFocus(); };
+            addEl.onclick = () => {
+                dom.inputs.name.value = '';
+                // dom.inputs.url.value = ''; // keep default for ease
+                state.formStep = 0;
+                changeView('add_playlist');
+            };
+            // Removed onmouseover
             dom.profileGrid.appendChild(addEl);
         }
 
@@ -1137,11 +1143,12 @@
                     state.browseView = 'sidebar';
                     updateFocus();
                 };
-                el.onmouseover = () => {
-                    // Sync focus but don't auto-select content yet (wait for click)
-                    state.categoryIndex = i;
+                el.onclick = () => {
+                    selectCategory(i);
+                    state.browseView = 'sidebar';
                     updateFocus();
                 };
+                // Removed onmouseover
                 dom.catList.appendChild(el);
             });
         }
@@ -1195,8 +1202,8 @@
 
                 let imgHTML = '';
                 if (ch.logo) {
-                    // Proxy URL
-                    const proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(ch.logo) + '&w=300&output=webp&il';
+                    // Proxy URL - CHANGED TO PNG for TV compatibility
+                    const proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(ch.logo) + '&w=300&output=png&il';
 
                     imgHTML = `
             <img src="${proxyUrl}"
@@ -1220,12 +1227,8 @@
             </div>
                 `;
                 el.onclick = () => playChannel(ch);
-                el.onmouseover = () => {
-                    // Switch to grid view if not already (handles transitions from sidebar hover)
-                    if (state.browseView !== 'grid') state.browseView = 'grid';
-                    state.channelIndex = i;
-                    updateFocus();
-                };
+                // Removed onmouseover
+                dom.chanGrid.appendChild(el);
                 dom.chanGrid.appendChild(el);
             });
         }
@@ -1317,25 +1320,52 @@
         function setupInput() {
             document.addEventListener('keydown', (e) => {
                 const k = e.keyCode;
-                const router = {
-                    13: 'ENTER', 40: 'DOWN', 38: 'UP', 37: 'LEFT', 39: 'RIGHT',
-                    461: 'BACK', 10009: 'BACK', 27: 'BACK', 8: 'BACK'
-                };
-                if (!router[k]) return;
+                const key = e.key; // Modern string identifier
 
-                // SPECIAL HANDLE FOR BACKSPACE IN INPUT
+                let action = null;
+
+                // Map Code/Key to Action
+                if (k === 13 || key === 'Enter') action = 'ENTER';
+                else if (k === 37 || key === 'ArrowLeft') action = 'LEFT';
+                else if (k === 38 || key === 'ArrowUp') action = 'UP';
+                else if (k === 39 || key === 'ArrowRight') action = 'RIGHT';
+                else if (k === 40 || key === 'ArrowDown') action = 'DOWN';
+                else if (k === 461 || k === 10009 || k === 27 || key === 'Back' || key === 'Escape') action = 'BACK';
+                else if (k === 8 || key === 'Backspace') action = 'BACK'; // Treat Backspace as Back generally
+
+                if (!action) return;
+
+                // SPECIAL HANDLE FOR SEARCH INPUT
                 const isInput = document.activeElement.tagName === 'INPUT';
                 if (isInput) {
-                    if (k === 8) return; // Allow Backspace to delete text
-                    if (k === 27) { e.preventDefault(); handleNav('BACK'); return; } // ESC = Back
-                    if (k === 13) { e.preventDefault(); handleNav('ENTER'); return; } // Enter
-                    // Allow arrows/typing in input, ignore other nav keys
-                    if (k !== 461 && k !== 10009) return;
+                    // If typing, allow default letters/numbers (which return null action)
+                    // But if it's a nav key, we need to decide.
+
+                    if (action === 'BACK') {
+                        // ESC/Back closes search/app
+                        e.preventDefault();
+                        handleNav('BACK');
+                        return;
+                    }
+                    if (action === 'ENTER') {
+                        e.preventDefault();
+                        handleNav('ENTER');
+                        return;
+                    }
+                    if (k === 8) return; // Allow natural Backspace in input
+
+                    // Allow arrows to move cursor inside input? 
+                    // Or navigate out? 
+                    // Standard TV behavior: Arrows navigate OUT to items.
+                    // But typing needs cursor move? 
+                    // Let's allow Arrow Left/Right to type? No, TV input usually on-screen keyboard.
+                    // Let's allow D-pad to break out of input.
+                    // Actually, keep simple: Arrows always navigate.
                 }
 
-                // Prevent Default Browser Action for Nav Keys (especially Back)
+                // Prevent Default Browser Action for Nav Keys (especially Back/Arrows)
                 e.preventDefault();
-                handleNav(router[k]);
+                handleNav(action);
             });
 
             // Search Filter
