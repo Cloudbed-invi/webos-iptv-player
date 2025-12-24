@@ -41,14 +41,25 @@
             padding: 2vmin;
         }
 
-        /* --- Magic Remote Rule: High Visibility Focus --- */
+        /* --- Magic Remote Rule: Simple & Clean Focus --- */
         .focused {
-            outline: 4px solid #FFD700 !important;
-            /* Gold/Yellow */
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
+            outline: 3px solid #fff !important;
+            /* Clean White */
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5) !important;
             transform: scale(1.05);
             z-index: 999;
             border-color: transparent !important;
+        }
+
+        /* Profile Card Specifics to fix visually broken focus */
+        .profile-card {
+            /* ... existing styles ... */
+            border: 2px solid transparent;
+        }
+
+        .profile-card.focused {
+            border-radius: var(--card-radius);
         }
 
         /* --- Animations --- */
@@ -1263,13 +1274,18 @@
                 };
                 if (!router[k]) return;
 
-                // Allow typing in search
-                const isSearch = document.activeElement === dom.searchInput;
-                if (isSearch && k !== 13 && k !== 40 && k !== 461 && k !== 10009 && k !== 27) return;
+                // SPECIAL HANDLE FOR BACKSPACE IN INPUT
+                const isInput = document.activeElement.tagName === 'INPUT';
+                if (isInput) {
+                    if (k === 8) return; // Allow Backspace to delete text
+                    if (k === 27) { e.preventDefault(); handleNav('BACK'); return; } // ESC = Back
+                    if (k === 13) { e.preventDefault(); handleNav('ENTER'); return; } // Enter
+                    // Allow arrows/typing in input, ignore other nav keys
+                    if (k !== 461 && k !== 10009) return;
+                }
 
-                // Prevent scrolling unless in input (handled above for search text)
-                if (document.activeElement.tagName !== 'INPUT') e.preventDefault();
-
+                // Prevent Default Browser Action for Nav Keys (especially Back)
+                e.preventDefault();
                 handleNav(router[k]);
             });
 
@@ -1583,8 +1599,19 @@
                 dom.player.video.pause();
                 dom.player.video.src = "";
             }
-            if (state.hls) state.hls.destroy();
+            if (state.hls) {
+                state.hls.destroy();
+                state.hls = null;
+            }
             changeView('browsing');
+        }
+
+        function showOSD() {
+            dom.player.osd.style.opacity = '1';
+            if (state.playerTimeout) clearTimeout(state.playerTimeout);
+            state.playerTimeout = setTimeout(() => {
+                dom.player.osd.style.opacity = '0';
+            }, 5000);
         }
 
         // --- BOOT ---
