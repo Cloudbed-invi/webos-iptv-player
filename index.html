@@ -1681,6 +1681,14 @@
                     maxBufferLength: 30, // conservative for TV memory
                     maxMaxBufferLength: 60,
                     startLevel: -1, // Auto
+                    // INTERCEPT ALL REQUESTS (Manifest + Segments + Keys)
+                    xhrSetup: function (xhr, url) {
+                        if (location.protocol === 'https:' && url.startsWith('http:')) {
+                            // Rewrite URL to go through Proxy
+                            const proxied = CORS_PROXY + url;
+                            xhr.open('GET', proxied, true);
+                        }
+                    }
                 };
 
                 state.hls = new Hls(config);
