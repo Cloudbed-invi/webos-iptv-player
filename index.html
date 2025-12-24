@@ -715,7 +715,8 @@
 
         #player-overlay:hover #player-close-btn,
         #player-overlay:hover .player-osd {
-            opacity: 1;
+            /* Removed CSS hover override to allow JS timeout to hide it */
+            /* opacity: 1; */
         }
 
         .show-osd .player-osd {
@@ -1406,7 +1407,16 @@
 
         function handleNav(action) {
             if (state.appState === 'playing') {
-                if (action === 'BACK' || action === 'ENTER') closePlayer();
+                if (action === 'BACK' || action === 'b') { // 'b' check for some remotes
+                    closePlayer();
+                    return;
+                }
+                if (action === 'ENTER') {
+                    // Toggle Play/Pause
+                    if (dom.player.video.paused) dom.player.video.play();
+                    else dom.player.video.pause();
+                }
+                // Show OSD on any key
                 showOSD();
                 return;
             }
@@ -1427,10 +1437,26 @@
                 return;
             }
 
-            // --- Logic Delegation ---
+            // ... (rest of delegation) ...
             if (state.appState === 'profiles') navProfiles(action);
             else if (state.appState === 'add_playlist') navAddForm(action);
             else if (state.appState === 'browsing') navBrowsing(action);
+        }
+
+        // ... (nav functions) ...
+
+        // ... (player functions) ...
+
+        function showOSD() {
+            dom.player.osd.style.opacity = '1';
+            const closeBtn = document.getElementById('player-close-btn');
+            if (closeBtn) closeBtn.style.opacity = '1';
+
+            if (state.playerTimeout) clearTimeout(state.playerTimeout);
+            state.playerTimeout = setTimeout(() => {
+                dom.player.osd.style.opacity = '0';
+                if (closeBtn) closeBtn.style.opacity = '0';
+            }, 5000);
         }
 
         function navProfiles(action) {
@@ -1656,13 +1682,27 @@
 
         function showOSD() {
             dom.player.osd.style.opacity = '1';
+            const closeBtn = document.getElementById('player-close-btn');
+            if (closeBtn) closeBtn.style.opacity = '1';
+
             if (state.playerTimeout) clearTimeout(state.playerTimeout);
             state.playerTimeout = setTimeout(() => {
                 dom.player.osd.style.opacity = '0';
+                if (closeBtn) closeBtn.style.opacity = '0';
             }, 5000);
         }
 
         // --- BOOT ---
-        window.onload = init;
+        window.onload = function () {
+            init();
+            // Player Mouse Interaction
+            dom.player.overlay.addEventListener('mousemove', () => {
+                showOSD();
+            });
+            // Click on overlay (bg) shows OSD too, unless it's close btn
+            dom.player.overlay.addEventListener('click', (e) => {
+                if (e.target === dom.player.overlay) showOSD();
+            });
+        };
 
     </script>
