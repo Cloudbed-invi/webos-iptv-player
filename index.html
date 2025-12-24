@@ -695,6 +695,27 @@
             justify-content: flex-end;
             opacity: 0;
             transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        /* Close Button (X mark) */
+        #player-close-btn {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: auto;
+            text-shadow: 0 2px 10px black;
+        }
+
+        #player-overlay:hover #player-close-btn,
+        #player-overlay:hover .player-osd {
+            opacity: 1;
         }
 
         .show-osd .player-osd {
