@@ -799,6 +799,15 @@
 </head>
 
 <body>
+    <!-- Debug Overlay -->
+    <div id="debug-overlay">
+        <div
+            style="display:flex; justify-content:space-between; border-bottom:1px solid #555; padding-bottom:5px; margin-bottom:5px;">
+            <strong>DEBUG MODE</strong>
+            <span onclick="toggleDebug()" style="cursor:pointer; color:white;">[CLOSE]</span>
+        </div>
+        <div id="debug-content"></div>
+    </div>
 
     <div id="views-container">
 
