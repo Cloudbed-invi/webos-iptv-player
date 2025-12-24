@@ -1204,16 +1204,15 @@
 
                 let imgHTML = '';
                 if (ch.logo) {
-                    // Proxy URL - CHANGED TO PNG for TV compatibility
-                    const proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(ch.logo) + '&w=300&output=png&il';
+                    // Proxy URL - CHANGED TO JPG for better TV compatibility
+                    // Removed extra attributes that might block loading on strict browsers
+                    const proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(ch.logo) + '&w=300&output=jpg&il';
 
                     imgHTML = `
             <img src="${proxyUrl}"
                 data-original-src="${ch.logo}"
                 data-fallback-step="0"
                 loading="lazy"
-                referrerpolicy="no-referrer"
-                crossorigin="anonymous"
                 onerror="handleImageError(this)"
             />
             <div class="no-logo" style="display:none; font-size:2rem; color: #555;">TV</div>
