@@ -984,6 +984,11 @@
 
         // --- Init ---
         function init() {
+            // Force focus for TV Remotes
+            document.body.tabIndex = 0; // Make body focusable
+            document.body.focus();
+            window.focus();
+
             startClock();
             loadPlaylists();
 
@@ -1446,6 +1451,7 @@
                 if (action === 'LEFT') {
                     // User Request: Left Click 1 -> Show OSD, Left Click 2 -> Close Player
                     const isVisible = dom.player.osd.style.opacity === '1';
+
                     if (isVisible) {
                         closePlayer();
                     } else {
